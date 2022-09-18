@@ -11,6 +11,9 @@ Vector2 MouseInfluenceRule::computeForce(const std::vector<Boid*>& neighborhood,
         Vector2 displacement = Vector2::zero(); // todo: change this
         float distance = 0; // todo: change this
 
+        displacement = mousePos - boid->transform.position;
+        distance = displacement.getMagnitude();
+
         // The force is inversely proportional to distance
         Vector2 force = displacement / exp(distance / 100.f);
 
