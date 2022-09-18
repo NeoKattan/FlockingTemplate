@@ -14,21 +14,12 @@ Vector2 SeparationRule::computeForce(const std::vector<Boid*>& neighborhood, Boi
 
         for(Boid* neighbor : neighborhood) {
             if (Vector2(position - neighbor->transform.position).getMagnitude() < desiredDistance) {
-                float separatingForceComponent = 1 - Vector2(position - neighbor->transform.position).getMagnitude() / desiredDistance;
-                separatingForce += Vector2::normalized(Vector2(position - neighbor->transform.position)) * separatingForceComponent;
+                separatingForce += Vector2::normalized(Vector2(position - neighbor->transform.position));
             }
         }
     }
 
-    float distance = separatingForce.getMagnitude();
-
-    if (distance < 0.01) {
-        distance = 0.01;
-    }
-
-    separatingForce /= distance;
-
-    return separatingForce;
+    return Vector2::normalized(separatingForce);
 }
 
 bool SeparationRule::drawImguiRuleExtra() {
